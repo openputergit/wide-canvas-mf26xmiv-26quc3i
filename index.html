@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Banking Assistant</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .video-container {
+            transition: all 0.3s ease;
+        }
+        .floating-button {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div id="app" class="min-h-screen">
+        <!-- Navigation -->
+        <nav class="bg-white shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <img src="https://via.placeholder.com/40x40" alt="Bank Logo" class="h-8 w-8">
+                        <span class="ml-2 text-xl font-semibold text-gray-800">MyBank</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="text-gray-600 hover:text-gray-800">
+                            <i class="bi bi-bell text-xl"></i>
+                        </button>
+                        <button class="text-gray-600 hover:text-gray-800">
+                            <i class="bi bi-person-circle text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Quick Actions -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <button class="p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+                    <i class="bi bi-cash text-2xl text-blue-600"></i>
+                    <p class="mt-2 text-sm font-medium text-gray-700">Transfer Money</p>
+                </button>
+                <button class="p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+                    <i class="bi bi-credit-card text-2xl text-blue-600"></i>
+                    <p class="mt-2 text-sm font-medium text-gray-700">Cards</p>
+                </button>
+                <button class="p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+                    <i class="bi bi-piggy-bank text-2xl text-blue-600"></i>
+                    <p class="mt-2 text-sm font-medium text-gray-700">Savings</p>
+                </button>
+                <button class="p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow text-center">
+                    <i class="bi bi-graph-up text-2xl text-blue-600"></i>
+                    <p class="mt-2 text-sm font-medium text-gray-700">Investments</p>
+                </button>
+            </div>
+
+            <!-- Customer Service Section -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h2 class="text-lg font-semibold mb-4">Frequently Asked Questions</h2>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                            <p class="text-gray-700">How do I reset my password?</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                            <p class="text-gray-700">Where can I find my account statement?</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                            <p class="text-gray-700">How to report a lost card?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h2 class="text-lg font-semibold mb-4">Contact Support</h2>
+                    <div class="space-y-4">
+                        <button class="w-full p-4 bg-blue-50 rounded-lg text-left hover:bg-blue-100">
+                            <i class="bi bi-chat-dots mr-2 text-blue-600"></i>
+                            <span class="text-gray-700">Chat with Support</span>
+                        </button>
+                        <button class="w-full p-4 bg-blue-50 rounded-lg text-left hover:bg-blue-100">
+                            <i class="bi bi-envelope mr-2 text-blue-600"></i>
+                            <span class="text-gray-700">Email Support</span>
+                        </button>
+                        <button class="w-full p-4 bg-blue-50 rounded-lg text-left hover:bg-blue-100">
+                            <i class="bi bi-telephone mr-2 text-blue-600"></i>
+                            <span class="text-gray-700">Call Support</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Video Assist Button -->
+        <div class="fixed bottom-6 right-6">
+            <button @click="toggleVideoAssist" class="floating-button bg-blue-600 text-white rounded-full p-4 hover:bg-blue-700 transition-colors">
+                <i class="bi bi-camera-video-fill text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Video Assist Modal -->
+        <div v-if="showVideoAssist" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+            <div class="video-container bg-white rounded-lg p-6 w-full max-w-lg">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-semibold">Video Assistant</h3>
+                    <button @click="toggleVideoAssist" class="text-gray-500 hover:text-gray-700">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <div class="aspect-w-16 aspect-h-9 bg-gray-100 rounded-lg mb-4">
+                    <div class="flex items-center justify-center h-full">
+                        <i class="bi bi-camera-video text-4xl text-gray-400"></i>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-2">
+                    <button class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">End Call</button>
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Start Call</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue
+
+        createApp({
+            data() {
+                return {
+                    showVideoAssist: false
+                }
+            },
+            methods: {
+                toggleVideoAssist() {
+                    this.showVideoAssist = !this.showVideoAssist
+                }
+            }
+        }).mount('#app')
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
